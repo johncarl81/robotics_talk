@@ -247,7 +247,7 @@ ros2 service list
 ros2 service call /add_two_ints ex/srv/AddTwoInts "{a: 32,b: 90}"
 ----
 
-[source,bash]
+[source,python]
 ----
 from example_interfaces.srv import AddTwoInts
 
@@ -283,3 +283,23 @@ if __name__ == '__main__':
 
 ----
 *Dont forget to add entry to setup.cfg!*
+
+[source,bash]
+----
+ros2 run gazebo_ros spawn_entity.py -file /workspace/models/iris_with_standoffs/model.sdf -entity drone
+
+/workspace/ardupilot/Tools/autotest/sim_vehicle.py -v ArduCopter -f gazebo-iris -I 1
+
+ros2 run mavros mavros_node fcu_url:=udp://0.0.0.0:14561@14565 target_component_id:=1 fcu_protocol:=v2.0
+----
+
+[source,bash]
+----
+ros2 service call /drone1/mavros/set_mode mavros_msgs/srv/SetMode "{custom_mode: GUIDED}"
+ros2 service call /drone1/mavros/cmd/arming  mavros_msgs/srv/CommandBool "{value: true}"
+ros2 service call /drone1/mavros/cmd/takeoff mavros_msgs/srv/CommandTOL "{altitude: 1}"
+ros2 service call /drone1/mavros/cmd/land mavros_msgs/srv/CommandTOL "{}"
+ros2 topic pub /drone1/mavros/setpoint_position/local geometry_msgs/msg/PoseStamped "{pose:{position: {x: 1, z: 5}}}"
+ros2 topic pub /drone1/mavros/setpoint_position/local geometry_msgs/msg/PoseStamped "{pose:{position: {x: -20, y: -20, z: 1}}}"
+ros2 service call /drone1/mavros/set_mode mavros_msgs/srv/SetMode "{custom_mode: RTL}"
+----
