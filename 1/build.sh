@@ -1,4 +1,4 @@
 #!/bin/bash
-docker build -t talk_one -f docker/Dockerfile .
+docker build -t talk_1 -f docker/Dockerfile .
 
 
