@@ -1,0 +1,54 @@
+
+=== Where to find ROS 2 distributions
+
+https://docs.ros.org/
+
+=== Getting started tutorials
+
+https://docs.ros.org/en/foxy/Tutorials.html
+
+=== Create a workspace
+https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Creating-A-Workspace/Creating-A-Workspace.html
+
+[source,shell]
+----
+ros2 pkg create --build-type ament_python --node-name example_node example_package
+----
+
+[source]
+----
+.
+└── example_package
+    ├── example_package
+    │   ├── __init__.py
+    │   └── example_node.py
+    ├── package.xml
+    ├── resource
+    │   └── example_package
+    ├── setup.cfg
+    ├── setup.py
+    └── test
+        ├── test_copyright.py
+        ├── test_flake8.py
+        └── test_pep257.py
+
+4 directories, 9 files
+----
+
+Build a package:
+[source,shell]
+----
+colcon build
+----
+
+Source the built binaries:
+[source,shell]
+----
+. install/setup.bash
+----
+
+Run a node:
+[source,shell]
+----
+ros2 run my_package my_node
+----
