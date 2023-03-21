@@ -22,4 +22,5 @@ docker run -it \
     --env="XAUTHORITY=$XAUTH" \
     --volume="$XAUTH:$XAUTH" \
     --runtime=nvidia \
+    --privileged \
     example-sim2:latest
